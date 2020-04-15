@@ -6,7 +6,7 @@ export default class Navbar extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <a className="navbar-brand" href="/photo-grid">
-          Corcoran Family Photo's
+          <div className="title">Corcoran Family Photo's</div>
         </a>
         <button
           className="navbar-toggler"
@@ -29,6 +29,11 @@ export default class Navbar extends Component {
             <li className="nav-item">
               <a className="nav-link" href="/upload">
                 Upload
+              </a>
+            </li>
+            <li className="nav-item" id="login">
+              <a className="nav-link" href="/login">
+                Login
               </a>
             </li>
           </ul>

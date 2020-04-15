@@ -5,14 +5,16 @@ import Navbar from "./components/Navbar/Navbar.js";
 import Footer from "./components/Footer/Footer.js";
 import PhotoGrid from "./components/PhotoGrid/PhotoGrid";
 import Upload from "./components/Upload/Upload";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Navbar />
-        {/* <Route exact path="/login" component={Login} /> */}
-        {/* <Route exact path="register" component={Register} /> */}
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
         <Route exact path="/photo-grid" component={PhotoGrid} />
         {/* <Route exact path="/photo/:id" component={Photo} /> */}
         <Route exact path="/upload" component={Upload} />
