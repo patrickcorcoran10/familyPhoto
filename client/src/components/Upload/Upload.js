@@ -1,19 +1,38 @@
 import React, { Component } from "react";
 import "./Upload.css";
+import superagent from "superagent";
 
 export default class Upload extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      image: "",
+      caption: "",
+    };
   }
-
+  handleCaption = (e) => {
+    console.log(e.target.value);
+    this.setState({
+      caption: e.target.value,
+    });
+  };
   upload = (e) => {
     e.preventDefault();
     console.log("we are attempting an upload.");
   };
   submitPhoto = (e) => {
     e.preventDefault();
-    console.log("we are submitting on this click.");
+    console.log("we are submitting on this click.", this.state.caption);
+    superagent
+      .post("/api/upload")
+      .send({
+        image: "here's an image",
+        caption: "test caption",
+      })
+      .end((err, res) => {
+        console.log(res);
+        // window.location.reload();
+      });
   };
   render() {
     return (
@@ -43,6 +62,7 @@ export default class Upload extends Component {
         <div className="mb-3">
           <label htmlFor="validationTextarea">Add a Caption</label>
           <textarea
+            onChange={(this.handleCaption = this.handleCaption.bind(this))}
             className="form-control is-invalid"
             id="validationTextarea"
             placeholder="Type your caption here..."

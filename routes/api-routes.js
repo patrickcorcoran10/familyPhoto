@@ -1,10 +1,10 @@
 const db = require("../models");
 
-const passport = require("../config/passport");
+// const passport = require("../config/passport");
 
 var fs = require("fs");
 
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 
 module.exports = function (app) {
   // GET ROUTE for PhotoGrid
@@ -13,28 +13,38 @@ module.exports = function (app) {
       res.json(dbData);
     });
   });
-  // CREATE ROUTE FOR DOWNLOADED PICTURE
   app.post("/api/upload", (req, res) => {
-    var imageData = fs.readFileSync(
-      __dirname + "/static/assets/images/jsa-header.png"
-    );
     db.Photos.create({
-      image: imageData,
-      caption: req.body.caption,
+      image: "image",
+      caption: "test caption",
     }).then((dbData) => {
-      try {
-        fs.writeFileSync(
-          __dirname + "/static/assets/tmp/tmp-jsa-header.png",
-          dbData.data
-        );
-
-        // exit node.js app
-        process.exit(0);
-      } catch (e) {
-        console.log(e);
-      }
+      res.json(dbData);
     });
   });
+  // CREATE ROUTE FOR DOWNLOADED PICTURE
+  // app.post("/api/upload", (req, res) => {
+  //   // var imageData = fs.readFileSync(
+  //   //   __dirname + "/static/assets/images/jsa-header.png"
+  //   // );
+  //   db.Photos.create({
+  //     // image: imageData,
+  //     image: req.body.image,
+  //     caption: req.body.caption,
+  //   }).then((dbData) => {
+  //     // try {
+  //     //   fs.writeFileSync(
+  //     //     __dirname + "/static/assets/tmp/tmp-jsa-header.png",
+  //     //     dbData.data
+  //     //   );
+
+  //     //   // exit node.js app
+  //     //   process.exit(0);
+  //     // } catch (e) {
+  //     //   console.log(e);
+  //     // }
+  //     res.json(dbData);
+  //   });
+  // });
   //   REGISTER ROUTE
   app.post("/api/register", function (req, res) {
     console.log(req.body);
@@ -53,5 +63,26 @@ module.exports = function (app) {
         res.json(err);
         // res.status(422).json(err.errors[0].message);
       });
+  });
+
+  // Delete Photo Route
+  app.delete("/api/delete:id", (req, res) => {
+    db.Lists.destroy({
+      where: {
+        id: req.params.id,
+      },
+    }).then((dbData) => {
+      res.json(dbData);
+    });
+  });
+  // Get Single Photo
+  app.get("/api/single:id", (req, res) => {
+    db.Lists.findAll({
+      where: {
+        id: req.params.id,
+      },
+    }).then((dbData) => {
+      res.json(dbData);
+    });
   });
 };

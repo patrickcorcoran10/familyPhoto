@@ -2,6 +2,18 @@ import React, { Component } from "react";
 import "./PhotoGrid.css";
 
 export default class PhotoGrid extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  async componentDidMount() {
+    const res = await fetch("/api/retrieve");
+    const data = await res.json();
+    this.setState({
+      data,
+    });
+    console.log(data);
+  }
   render() {
     return (
       <div className="container">
